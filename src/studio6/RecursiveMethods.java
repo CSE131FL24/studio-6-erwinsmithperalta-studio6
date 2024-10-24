@@ -1,5 +1,7 @@
 package studio6;
 
+import java.util.Arrays;
+
 import edu.princeton.cs.introcs.StdDraw;
 
 public class RecursiveMethods {
@@ -13,8 +15,15 @@ public class RecursiveMethods {
 	 */
 	public static double geometricSum(int n) {
 		
-			// FIXME compute the geometric sum for the first n terms recursively
-			return 0;
+			if (n == 0) {
+				return 0;
+			}
+			else if (n == 1) {
+				return 0.5; //base case}
+			}
+			else {
+				return Math.pow(0.5, n) + geometricSum(n-1);
+			}
 		
 	}
 	
@@ -29,10 +38,23 @@ public class RecursiveMethods {
 	 */
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius,
 			double radiusMinimumDrawingThreshold) {
+		if(radius <= radiusMinimumDrawingThreshold) {
+			return;
+		}
+		StdDraw.circle(xCenter, yCenter, radius);
+		StdDraw.pause(10);
 		
-		// FIXME
+		circlesUponCircles(xCenter - radius, yCenter, radius/3, radiusMinimumDrawingThreshold);
+		
+		circlesUponCircles(xCenter + radius, yCenter, radius/3, radiusMinimumDrawingThreshold);
+		
+		circlesUponCircles(xCenter, yCenter + radius, radius/3, radiusMinimumDrawingThreshold);
+		
+		circlesUponCircles(xCenter, yCenter - radius, radius/3, radiusMinimumDrawingThreshold);
+		
 	}
 
+	
 	/**
 	 * This method uses recursion to create a reverse of the given array
 	 * 
@@ -40,10 +62,24 @@ public class RecursiveMethods {
 	 * @return an array with the same data as the input but it reverse order
 	 */
 	public static int[] toReversed(int[] array) {
-		
+			// [1 2 3 4 5 ] [ 1 ]
+			//  0 1 2 3 4
 			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
-		
+			int index = 0;
+			int[] arrayFlip = new int[array.length];
+			if (array.length <= 1) {
+				return Arrays.copyOf(array, array.length);
+			}
+			return toReversedHelper(array, index, arrayFlip);	
+	}
+	public static int[] toReversedHelper(int[] array, int index, int[] arrayFlip) {
+		int lastIndex = array.length - 1; 
+		if (index > array.length / 2) { //  base case index 1
+			return arrayFlip;
+		}
+		arrayFlip[index] = array[lastIndex - index]; 
+		arrayFlip[lastIndex - index] = array[index];
+		return toReversedHelper(array, index + 1, arrayFlip);
 	}
 	
 	/**

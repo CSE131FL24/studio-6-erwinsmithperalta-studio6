@@ -27,7 +27,7 @@ public class IterativeMethods {
 	public static int[] toReversed(int[] array) {
 		int[] reversed = new int[array.length];
 		if (array.length > 0) {
-			int lastIndex = array.length - 1;
+			int lastIndex = array.length - 1; //3
 			for (int index = 0; index <= array.length / 2; ++index) {
 				int mirrorIndex = lastIndex - index;
 				// note:
